@@ -1,0 +1,12 @@
+name: Hello World # Github 웹 사이드바 이름
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build: # Jobs 이름
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Hello World # Step 이름
+        run: echo "Hello World @ Github Actions 🚀"
