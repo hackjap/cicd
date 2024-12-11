@@ -14,5 +14,5 @@ jobs:
       - name: Run a one-line script
         run: |
           echo ENV: ${{ env.MESSAGE }}
-          echo VARIABLE: ${{ GITHUB_MESSAGE }}
+          echo VARIABLE: ${{ vars_MESSAGE }}
           echo SECRET: ${{ secrets.APP_SECRET }}
