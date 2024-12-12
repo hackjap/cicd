@@ -41,7 +41,7 @@ jobs:
           GIT_NAME: "devops"
         run: |
           git config --global user.email "hackjap@devops.com"
-          git config --global user.name "$hackjap"
+          git config --global user.name "hackjap"
           git add deploy/*
           git commit -m "UPDATE :: Updated image to ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}"
           git push origin main
