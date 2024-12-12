@@ -42,13 +42,13 @@ jobs:
           # Git 설정: 사용자 정보 등록
           git config --global user.email "devops@gmail.com"
           git config --global user.name "devops"
-          
+
           # 변경된 파일 추가
           git add deploy/*
-          
+
           # 커밋 생성 (변경 사항이 있을 경우에만)
           git diff --cached --quiet || git commit -m "UPDATE :: Updated image to ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}"
-          
+
           # 변경 사항 푸시
           git push origin main
 
