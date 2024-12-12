@@ -32,7 +32,7 @@ jobs:
       # 6. Update image tag in manifest
       - name: Update Manifest YAML
         run: |
-          yq e ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}\"" -i deploy/deployment.yaml
+          yq e ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}\"" -i deploy/nginx-deployment.yaml
 
       # 7. Commit and push manifest changes
       - name: Commit and Push Changes
@@ -40,21 +40,21 @@ jobs:
           GIT_EMAIL: "devops@gmail.com"
           GIT_NAME: "devops"
         run: |
-          git config --global user.email "$GIT_EMAIL"
-          git config --global user.name "$GIT_NAME"
-          git add deploy/deployment.yaml
+          git config --global user.email "hackjap@devops.com"
+          git config --global user.name "$hackjap"
+          git add deploy/*
           git commit -m "UPDATE :: Updated image to ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}"
           git push origin main
 
-  deploy:
-    name: Deploy to Kubernetes via ArgoCD
-    runs-on: self-hosted
-    needs: build-and-push
-    steps:
-      # 1. Sync ArgoCD application
-      - name: Sync ArgoCD Application
-        run: |
-          argocd app sync my-app \
-            --server ${{ secrets.ARGOCD_SERVER }} \
-            --auth-token ${{ secrets.ARGOCD_AUTH_TOKEN }} \
-            --revision ${GITHUB_SHA}
+  # deploy:
+  #   name: Deploy to Kubernetes via ArgoCD
+  #   runs-on: self-hosted
+  #   needs: build-and-push
+  #   steps:
+  #     # 1. Sync ArgoCD application
+  #     - name: Sync ArgoCD Application
+  #       run: |
+  #         argocd app sync my-app \
+  #           --server ${{ secrets.ARGOCD_SERVER }} \
+  #           --auth-token ${{ secrets.ARGOCD_AUTH_TOKEN }} \
+  #           --revision ${GITHUB_SHA}
