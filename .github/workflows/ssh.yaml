@@ -1,10 +1,23 @@
 name: remote ssh command
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: Build
     runs-on: self-hosted
     steps:
+      # 1. Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. List files and print working directory
+      - name: List Files and Current Directory
+        run: |
+          ls -al
+          pwd
+
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -14,4 +27,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             whoami
-            ls -al 
+            ls -al
