@@ -21,7 +21,7 @@ jobs:
       - name: Git Pull
         run: |
           export MY_HOST="${{ secrets.TARGET_SERVER_IP }}"
-          ssh ubuntu@$MY_HOST << EOF
+          ssh root@$MY_HOST << EOF
             git pull origin main || exit 1
             pwd && ls -al || exit 1
           EOF
@@ -29,5 +29,5 @@ jobs:
       - name: Run service
         run: |
           export MY_HOST="${{ secrets.TARGET_SERVER_IP }}"
-          ssh ubuntu@$MY_HOST ip a 
-          ssh ubuntu@$MY_HOST pwd && ls -al
+          ssh root@$MY_HOST ip a 
+          ssh root@$MY_HOST pwd && ls -al
