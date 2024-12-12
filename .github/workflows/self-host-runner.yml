@@ -9,22 +9,22 @@ jobs:
   deployfinal:
     runs-on: self-hosted
     steps:
-      # - name: Configure the SSH Private Key Secret
-      #   run: |
-      #     mkdir -p ~/.ssh/
-      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
+      - name: Configure the SSH Private Key Secret
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-      # - name: Set Strict Host Key Checking
-      #   run: echo "StrictHostKeyChecking=no" > ~/.ssh/config
+      - name: Set Strict Host Key Checking
+        run: echo "StrictHostKeyChecking=no" > ~/.ssh/config
 
-      # - name: Git Pull
-      #   run: |
-      #     export MY_HOST="${{ secrets.EC2_PIP }}"
-      #     ssh ubuntu@$MY_HOST << EOF
-      #       cd /home/ubuntu/cicd-2w || exit 1
-      #       git pull origin main || exit 1
-      #     EOF
+      - name: Git Pull
+        run: |
+          export MY_HOST="${{ secrets.TARGET_SERVER_IP }}"
+          ssh ubuntu@$MY_HOST << EOF
+            git pull origin main || exit 1
+            pwd && ls -al || exit 1
+          EOF
 
       - name: Run service
         run: |
