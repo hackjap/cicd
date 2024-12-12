@@ -12,19 +12,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # 2. List files and print working directory
-      - name: List Files and Current Directory
-        run: |
-          ls -al
-          pwd
-
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.2.0
+      # 2. Set up Kaniko and build Docker image
+      - name: Build and Push Docker Image using Kaniko
+        uses: gcr.io/kaniko-project/executor:latest
         with:
-          host: ${{ secrets.HOST }}
-          username: root
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            whoami
-            ls -al
+          args: >
+            --context . 
+            --dockerfile ./Dockerfile 
+            --destination ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+            --insecure
