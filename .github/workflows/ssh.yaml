@@ -4,8 +4,8 @@ on:
     branches:
       - main
 jobs:
-  build:
-    name: Build
+  build-and-push:
+    name: Build and Push Docker Image
     runs-on: self-hosted
     steps:
       # 1. Checkout repository
@@ -23,3 +23,38 @@ jobs:
       # docker image 업로드
       - name: Push docker image
         run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+      # 5. Install yq (for YAML processing)
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y yq
+
+      # 6. Update image tag in manifest
+      - name: Update Manifest YAML
+        run: |
+          yq e ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}\"" -i deploy/deployment.yaml
+
+      # 7. Commit and push manifest changes
+      - name: Commit and Push Changes
+        env:
+          GIT_EMAIL: "devops@gmail.com"
+          GIT_NAME: "devops"
+        run: |
+          git config --global user.email "$GIT_EMAIL"
+          git config --global user.name "$GIT_NAME"
+          git add deploy/deployment.yaml
+          git commit -m "UPDATE :: Updated image to ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}"
+          git push origin main
+
+  deploy:
+    name: Deploy to Kubernetes via ArgoCD
+    runs-on: self-hosted
+    needs: build-and-push
+    steps:
+      # 1. Sync ArgoCD application
+      - name: Sync ArgoCD Application
+        run: |
+          argocd app sync my-app \
+            --server ${{ secrets.ARGOCD_SERVER }} \
+            --auth-token ${{ secrets.ARGOCD_AUTH_TOKEN }} \
+            --revision ${GITHUB_SHA}
