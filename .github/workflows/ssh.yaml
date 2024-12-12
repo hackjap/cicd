@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build-and-push:
+  build:
     name: Build and Push Docker Image
     runs-on: self-hosted
     steps:
@@ -23,6 +23,11 @@ jobs:
       # docker image 업로드
       - name: Push docker image
         run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+  push:
+    name: Build and Push Docker Image
+    runs-on: self-hosted
+    steps:
       # 5. Install yq (for YAML processing)
       - name: Install yq
         run: |
@@ -52,15 +57,16 @@ jobs:
           # 변경 사항 푸시
           git push origin main
 
-  # deploy:
-  #   name: Deploy to Kubernetes via ArgoCD
-  #   runs-on: self-hosted
-  #   needs: build-and-push
-  #   steps:
-  #     # 1. Sync ArgoCD application
-  #     - name: Sync ArgoCD Application
-  #       run: |
-  #         argocd app sync my-app \
-  #           --server ${{ secrets.ARGOCD_SERVER }} \
-  #           --auth-token ${{ secrets.ARGOCD_AUTH_TOKEN }} \
-  #           --revision ${GITHUB_SHA}
+# autusync
+# deploy:
+#   name: Deploy to Kubernetes via ArgoCD
+#   runs-on: self-hosted
+#   needs: build-and-push
+#   steps:
+#     # 1. Sync ArgoCD application
+#     - name: Sync ArgoCD Application
+#       run: |
+#         argocd app sync my-app \
+#           --server ${{ secrets.ARGOCD_SERVER }} \
+#           --auth-token ${{ secrets.ARGOCD_AUTH_TOKEN }} \
+#           --revision ${GITHUB_SHA}
