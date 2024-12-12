@@ -12,12 +12,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # 2. Set up Kaniko and build Docker image
-      - name: Build and Push Docker Image using Kaniko
-        uses: gcr.io/kaniko-project/executor:latest
-        with:
-          args: >
-            --context . 
-            --dockerfile ./Dockerfile 
-            --destination ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
-            --insecure
+      # docker login
+      - name: Login docker registry
+        run: docker login -u ${{ secrets.DOCKER_REGISTRY_USER }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      # docker image 빌드
+      - name: Build docker image
+        run: docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }} .
+
+      # docker image 업로드
+      - name: Push docker image
+        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.sha }}
