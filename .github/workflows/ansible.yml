@@ -37,6 +37,7 @@ jobs:
 
       - name: Ansible Default Configuration File
         run: |
+          pwd && ls -al
           mkdir -p ./devops/ansible/
           cat <<EOF > ./devops/ansible/ansible.cfg
           [defaults]
