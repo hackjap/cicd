@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: harbor.prd.tps.com/library/action-cicd:63f72d3dbdf3ead62726f1f8aebe669404b3ee1b
+          image: harbor.prd.tps.com/library/action-cicd:61095c55e9e2af2b5252e2c591beb60f6bb8410d
           ports:
             - containerPort: 80
