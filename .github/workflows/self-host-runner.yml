@@ -9,14 +9,14 @@ jobs:
   deployfinal:
     runs-on: self-hosted
     steps:
-      - name: Configure the SSH Private Key Secret
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      # - name: Configure the SSH Private Key Secret
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
 
-      - name: Set Strict Host Key Checking
-        run: echo "StrictHostKeyChecking=no" > ~/.ssh/config
+      # - name: Set Strict Host Key Checking
+      #   run: echo "StrictHostKeyChecking=no" > ~/.ssh/config
 
       - name: Git Pull
         run: |
