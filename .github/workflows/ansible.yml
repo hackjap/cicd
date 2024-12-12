@@ -22,11 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install ansible
 
-      - name: Implement the Private SSH Key
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      # - name: Implement the Private SSH Key
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
 
       - name: Ansible Inventory File for Remote host
         run: |
