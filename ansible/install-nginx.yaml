@@ -1,0 +1,27 @@
+---
+- name: Install and Configure Nginx
+  hosts: all
+  become: yes # root 권한으로 실행
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and Enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Check Nginx status
+      shell: curl -I http://localhost
+      register: nginx_status
+
+    - name: Print Nginx status
+      debug:
+        msg: "{{ nginx_status.stdout }}"
