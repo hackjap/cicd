@@ -11,5 +11,5 @@ jobs: # Jobs
       - name: Hello World
         run: |
           echo "Hello World! Github Actions 🚀"
-          echo ENV: ${{ var.MESSAGE }}
+          echo ENV: ${{ vars.MESSAGE }}
           echo SECRET: ${{ secrets.APP_SECRET }}
