@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-
+    paths-ignore:
+      - "deploy/**"
 jobs:
   build:
     name: Build and Push Docker Image # Docker 이미지 빌드/푸시 작업
