@@ -1,5 +1,5 @@
 name: Hello World # 워크플로우
-on: # Events 
+on: # Events
   workflow_dispatch:
   push:
 
@@ -7,12 +7,9 @@ jobs: # Jobs
   build:
     runs-on: ubuntu-latest
     steps: # Step
-      - uses: actions/checkout@v3 # Action 
-      - name: Hello World 
+      - uses: actions/checkout@v3 # Action
+      - name: Hello World
         run: |
-          echo "Hello World! Github Actions 🚀"
-          echo ENV: ${{ env.MESSAGE }}
-          echo SECRET: ${{ secrets.APP_SECRET }}
-
-
-
+          echo "Github Actions: act로 워크플로우 실행"
+          echo ENV: $MY_ENV
+          echo SECRET: ${{ secrets.MY_SECRET }}
