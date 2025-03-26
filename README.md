@@ -1,2 +1,2 @@
 # cicd
-cicd study a
+cicd study 
