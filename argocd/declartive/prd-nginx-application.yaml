@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prd-nginx
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values-prd.yaml
+    path: argocd/helm-charts/nginx-chart
+    repoURL: https://github.com/hackjap/cicd
+    targetRevision: HEAD
+  destination:
+    namespace: prd-nginx
+    server: https://kubernetes.default.svc
+    syncOptions:
+    - CreateNamespace=true
