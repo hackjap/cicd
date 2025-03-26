@@ -15,6 +15,9 @@ spec:
       containers:
       - name: nginx
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        env:
+        - name: RANDOM_VALUE
+          value: {{ randAlphaNum 8 | quote }}
         ports:
         - containerPort: 80
         volumeMounts:
