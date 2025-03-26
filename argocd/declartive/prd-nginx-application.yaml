@@ -17,5 +17,6 @@ spec:
   destination:
     namespace: prd-nginx
     server: https://kubernetes.default.svc
+  syncPolicy:    
     syncOptions:
     - CreateNamespace=true

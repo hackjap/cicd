@@ -12,7 +12,7 @@ spec:
       valueFiles:
       - values-dev.yaml
     path: argocd/helm-charts/nginx-chart
-    repoURL: http://172.16.0.139:3000/devops/ops-deploy
+    repoURL: https://github.com/hackjap/cicd
     targetRevision: HEAD
   syncPolicy:
     automated:
