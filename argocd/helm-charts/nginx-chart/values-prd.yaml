@@ -1,0 +1,17 @@
+indexHtml: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Welcome to Nginx!</title>
+  </head>
+  <body>
+    <h1>Hello, Kubernetes!</h1>
+    <p>PRD : Nginx version 1.26.2</p>
+  </body>
+  </html>
+
+image:
+  repository: nginx
+  tag: 1.26.2
+
+replicaCount: 3
