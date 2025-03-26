@@ -11,7 +11,7 @@ spec:
     helm:
       valueFiles:
       - values-dev.yaml
-    path: nginx-chart
+    path: argocd/helm-charts/nginx-chart
     repoURL: http://172.16.0.139:3000/devops/ops-deploy
     targetRevision: HEAD
   syncPolicy:
