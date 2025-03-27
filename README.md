@@ -1,3 +1,1 @@
 # cicd
-cicd study 
-add
