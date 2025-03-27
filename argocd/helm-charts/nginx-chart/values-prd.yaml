@@ -14,4 +14,4 @@ image:
   repository: nginx
   tag: 1.26.2
 
-replicaCount: 3
+replicaCount: 10
