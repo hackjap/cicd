@@ -9,6 +9,8 @@ pipelines:
         branch: main
     stages:
       - build:
+          approval:
+            type: manual
           jobs:
             build-job:
               elastic_profile_id: "demo-app"
