@@ -6,6 +6,7 @@ pipelines:
     materials:
       git-repo:
         git: https://github.com/hackjap/cicd.git
+        branch: main
     stages:
       - build:
           jobs:
