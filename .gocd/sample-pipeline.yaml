@@ -1,0 +1,17 @@
+format_version: 10
+
+pipelines:
+  sample-pipeline:
+    group: sample-group
+    materials:
+      git-repo:
+        git: https://github.com/hackjap/cicd.git
+    stages:
+      - build:
+          jobs:
+            build-job:
+              elastic_profile_id: "demo-app"
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Hello from GoCD YAML Pipeline!"]
