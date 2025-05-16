@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: test-image-updater
+  name: test-image-updater
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-image-updater
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test-image-updater
+    spec:
+      containers:
+      - image: harbor.dev.trb.com/infra/nginx-image-updater:latest
+        name: nginx-image-updater
+        resources: {}
+status: {}
