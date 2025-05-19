@@ -10,7 +10,7 @@ metadata:
     argocd-image-updater.argoproj.io/sample.helm.image-tag: sample.image.tag
     argocd-image-updater.argoproj.io/sample.update-strategy: semver
     argocd-image-updater.argoproj.io/write-back-method: git:secret:trb-oss/git-creds
-    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:/argocd/declartive/image-updater-application.yaml"
+    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:/argocd-imageupdater/nginx-sample/test-values.yaml"
   name: test-image-updater
   namespace: trb-oss
 spec:
