@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd-image-updater.argoproj.io/app.helm.image-tag: image.tag
+    argocd-image-updater.argoproj.io/app.update-strategy: semver
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/image-list: app=harbor.dev.trb.com/infra/nginx-image-updater,
+      sample=harbor.dev.trb.com/infra/nginx-image-updater-sample
+    argocd-image-updater.argoproj.io/sample.helm.image-tag: sample.image.tag
+    argocd-image-updater.argoproj.io/sample.update-strategy: semver
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:trb-oss/git-creds
+    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:/argocd/declartive/image-updater-application.yaml"
+  name: test-image-updater
+  namespace: trb-oss
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: argocd-image-updater/nginx-sample
+    repoURL: https://github.com/hackjap/cicd.git
+    targetRevision: main 
