@@ -4,7 +4,7 @@ helm:
     value: harbor.dev.trb.com/infra/nginx-image-updater-sample
     forcestring: true
   - name: image.tag
-    value: 20250521-174034
+    value: 20250521-174033
     forcestring: true
   - name: image.repository
     value: harbor.dev.trb.com/infra/nginx-image-updater-sample
